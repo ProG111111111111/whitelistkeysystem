@@ -1,1 +1,432 @@
- local g = "\51\54\50\48" ; local s = "\48\99\48\50\49\100\97\97\45\97\49\102\49\45\52\48\51\56\45\57\50\55\53\45\57\50\97\56\52\101\49\51\51\55\101\48";  local j = true;  local r = function(o)  game:GetService("\83\116\97\114\116\101\114\71\117\105"):SetCore("\67\104\97\116\77\97\107\101\83\121\115\116\101\109\77\101\115\115\97\103\101", { Text = o; }) end; repeat task.wait(1) until game:IsLoaded() or game.Players.LocalPlayer; local q = false; local i, fRequest, fStringChar, fToString, fStringSub, fOsTime, fMathRandom, fMathFloor, fGetHwid = setclipboard or toclipboard, request or http_request, string.char, tostring, string.sub, os.time, math.random, math.floor, gethwid or function() return game:GetService("\80\108\97\121\101\114\115").LocalPlayer.UserId end local p, cachedTime = "", 0; local _ = game:GetService("\72\116\116\112\83\101\114\118\105\99\101") function n(d) return _:JSONEncode(d) end function h(d) return _:JSONDecode(d) end local function f(c) local f_ = tostring(c) local cf = {} for i = 1, #f_ do table.insert(cf, string.byte(f_, i)) end local nc = "" for _, byte in ipairs(cf) do nc = nc .. string.format("%02x", byte) end return nc end local m = "\104\116\116\112\115\58\47\47\97\112\105\46\112\108\97\116\111\98\111\111\115\116\46\99\111\109"; local hm = fRequest({ Url = m .. "\47\112\117\98\108\105\99\47\99\111\110\110\101\99\116\105\118\105\116\121", Method = "\71\69\84" }); if hm.StatusCode ~= 200 or hm.StatusCode ~= 429 then m = "\104\116\116\112\115\58\47\47\97\112\105\46\112\108\97\116\111\98\111\111\115\116\46\110\101\116"; end function e() if cachedTime + (10*60) < fOsTime() then local abo = fRequest({ Url = m .. "\47\112\117\98\108\105\99\47\115\116\97\114\116", Method = "\80\79\83\84", Body = n({ g = g, identifier = f(fGetHwid()) }), Headers = { ["\67\111\110\116\101\110\116\45\84\121\112\101"] = "\97\112\112\108\105\99\97\116\105\111\110\47\106\115\111\110" } }); if abo.StatusCode == 200 then local kab = h(abo.Body); if kab.success == true then p = kab.data.url; cachedTime = fOsTime(); return true, p; else r(kab.message); return false, kab.message; end elseif abo.StatusCode == 429 then local gl = "\121\111\117\32\97\114\101\32\98\101\105\110\103\32\114\97\116\101\32\108\105\109\105\116\101\100\44\32\112\108\101\97\115\101\32\119\97\105\116\32\50\48\32\115\101\99\111\110\100\115\32\97\110\100\32\116\114\121\32\97\103\97\105\110\46"; r(gl); return false, gl; end local gl = "\70\97\105\108\101\100\32\116\111\32\99\97\99\104\101\32\108\105\110\107\46"; r(gl); return false, gl; else return true, p; end end e(); local ab = function() local ka = "" for _ = 1, 16 do ka = ka .. fStringChar(fMathFloor(fMathRandom() * (122 - 97 + 1)) + 97) end return ka end for _ = 1, 5 do local lk = ab(); task.wait(0.2) if ab() == lk then local gl = "\112\108\97\116\111\98\111\111\115\116\32\110\111\110\99\101\32\101\114\114\111\114\46"; r(gl); error(gl); end end local sg = function() local js, link = e(); if js then print("\83\101\116\67\108\105\112\66\111\97\114\100") i(link); end end local rj = function(a) local oe = ab(); local b = m .. "\47\112\117\98\108\105\99\47\114\101\100\101\101\109\47" .. fToString(g); local pi = { identifier = f(fGetHwid()), a = a } if j then pi.nonce = oe; end local abo = fRequest({ Url = b, Method = "\80\79\83\84", Body = n(pi), Headers = { ["\67\111\110\116\101\110\116\45\84\121\112\101"] = "\97\112\112\108\105\99\97\116\105\111\110\47\106\115\111\110" } }); if abo.StatusCode == 200 then local kab = h(abo.Body); if kab.success == true then if kab.data.valid == true then if j then if kab.data.hash == f("\116\114\117\101" .. "\45" .. oe .. "\45" .. s) then return true; else r("\102\97\105\108\101\100\32\116\111\32\118\101\114\105\102\121\32\105\110\116\101\103\114\105\116\121\46"); return false; end     else return true; end else r("\107\101\121\32\105\115\32\105\110\118\97\108\105\100\46"); return false; end else if fStringSub(kab.message, 1, 27) == "\117\110\105\113\117\101\32\99\111\110\115\116\114\97\105\110\116\32\118\105\111\108\97\116\105\111\110" then r("\121\111\117\32\97\108\114\101\97\100\121\32\104\97\118\101\32\97\110\32\97\99\116\105\118\101\32\107\101\121\44\32\112\108\101\97\115\101\32\119\97\105\116\32\102\111\114\32\105\116\32\116\111\32\101\120\112\105\114\101\32\98\101\102\111\114\101\32\114\101\100\101\101\109\105\110\103\32\105\116\46"); return false; else r(kab.message); return false; end end elseif abo.StatusCode == 429 then r("\121\111\117\32\97\114\101\32\98\101\105\110\103\32\114\97\116\101\32\108\105\109\105\116\101\100\44\32\112\108\101\97\115\101\32\119\97\105\116\32\50\48\32\115\101\99\111\110\100\115\32\97\110\100\32\116\114\121\32\97\103\97\105\110\46"); return false; else r("\115\101\114\118\101\114\32\114\101\116\117\114\110\101\100\32\97\110\32\105\110\118\97\108\105\100\32\115\116\97\116\117\115\32\99\111\100\101\44\32\112\108\101\97\115\101\32\116\114\121\32\97\103\97\105\110\32\108\97\116\101\114\46"); return false;  end end local cf_ = function(a) if q == true then r("\97\32\114\101\113\117\101\115\116\32\105\115\32\97\108\114\101\97\100\121\32\98\101\105\110\103\32\115\101\110\116\44\32\112\108\101\97\115\101\32\115\108\111\119\32\100\111\119\110\46"); return false; else q = true; end local oe = ab(); local b = m .. "\47\112\117\98\108\105\99\47\119\104\105\116\101\108\105\115\116\47" .. fToString(g) .. "\63\105\100\101\110\116\105\102\105\101\114\61" .. f(fGetHwid()) .. "\38\107\101\121\61" .. a; if j then b = b .. "\38\110\111\110\99\101\61" .. oe; end local abo = fRequest({ Url = b, Method = "\71\69\84", }); q = false; if abo.StatusCode == 200 then local kab = h(abo.Body); if kab.success == true then if kab.data.valid == true then if j then return true; else return true; end else if fStringSub(a, 1, 4) == "\70\82\69\69\95" then return rj(a); else r("\107\101\121\32\105\115\32\105\110\118\97\108\105\100\46"); return false; end end else r(kab.message); return false; end elseif abo.StatusCode == 429 then r("\121\111\117\32\97\114\101\32\98\101\105\110\103\32\114\97\116\101\32\108\105\109\105\116\101\100\44\32\112\108\101\97\115\101\32\119\97\105\116\32\50\48\32\115\101\99\111\110\100\115\32\97\110\100\32\116\114\121\32\97\103\97\105\110\46"); return false; else r("\115\101\114\118\101\114\32\114\101\116\117\114\110\101\100\32\97\110\32\105\110\118\97\108\105\100\32\115\116\97\116\117\115\32\99\111\100\101\44\32\112\108\101\97\115\101\32\116\114\121\32\97\103\97\105\110\32\108\97\116\101\114\46"); return false; end end local ed = function(k) local oe = ab(); local b = m .. "\47\112\117\98\108\105\99\47\102\108\97\103\47" .. fToString(g) .. "\63\110\97\109\101\61" .. k; if j then b = b .. "\38\110\111\110\99\101\61" .. oe; end local abo = fRequest({ Url = b, Method = "\71\69\84", }); if abo.StatusCode == 200 then local kab = h(abo.Body); if kab.success == true then if j then if kab.data.hash == f(fToString(kab.data.value) .. "\45" .. oe .. "\45" .. s) then return kab.data.value; else r("\102\97\105\108\101\100\32\116\111\32\118\101\114\105\102\121\32\105\110\116\101\103\114\105\116\121\46"); return nil; end else return kab.data.value; end else r(kab.message); return nil; end else return nil; end end task.spawn(function() local lka = Instance.new("\83\99\114\101\101\110\71\117\105") local glk = Instance.new("\70\114\97\109\101") local sgl = Instance.new("\70\114\97\109\101") local jsg = Instance.new("\84\101\120\116\66\117\116\116\111\110") local rjs = Instance.new("\84\101\120\116\66\117\116\116\111\110") local glk_2 = Instance.new("\70\114\97\109\101") local iq = Instance.new("\84\101\120\116\66\117\116\116\111\110") local piq = Instance.new("\84\101\120\116\66\117\116\116\111\110") local _p = Instance.new("\84\101\120\116\66\111\120") local f_p = Instance.new("\84\101\120\116\76\97\98\101\108") lka.Parent = game.Players.LocalPlayer:WaitForChild("\80\108\97\121\101\114\71\117\105") lka.ZIndexBehavior = Enum.ZIndexBehavior.Sibling glk.Parent = lka glk.BackgroundColor3 = Color3.fromRGB(76, 76, 76) glk.BorderColor3 = Color3.fromRGB(0, 0, 0) glk.BorderSizePixel = 0 glk.Position = UDim2.new(0.286729872, 0, 0.295880139, 0) glk.Size = UDim2.new(0, 359, 0, 217) sgl.Name = "\84\111\112\98\97\114" sgl.Parent = glk sgl.BackgroundColor3 = Color3.fromRGB(0, 0, 0) sgl.BorderColor3 = Color3.fromRGB(0, 0, 0) sgl.BorderSizePixel = 0 sgl.Size = UDim2.new(0, 359, 0, 27) jsg.Name = "\69\120\105\116" jsg.Parent = sgl jsg.BackgroundColor3 = Color3.fromRGB(255, 0, 0) jsg.BackgroundTransparency = 0.300 jsg.BorderColor3 = Color3.fromRGB(0, 0, 0) jsg.BorderSizePixel = 0 jsg.Position = UDim2.new(0.905292451, 0, 0.111111112, 0) jsg.Size = UDim2.new(0, 25, 0, 20) jsg.Font = Enum.Font.SourceSans jsg.Text = "\88" jsg.TextColor3 = Color3.fromRGB(255, 255, 255) jsg.TextScaled = true jsg.TextSize = 14.000 jsg.TextWrapped = true rjs.Name = "\109\105\110\105\109\105\122\101" rjs.Parent = sgl rjs.BackgroundColor3 = Color3.fromRGB(85, 255, 0) rjs.BackgroundTransparency = 0.300 rjs.BorderColor3 = Color3.fromRGB(0, 0, 0) rjs.BorderSizePixel = 0 rjs.Position = UDim2.new(0.810584962, 0, 0.111111112, 0) rjs.Size = UDim2.new(0, 25, 0, 20) rjs.Font = Enum.Font.SourceSans rjs.Text = "\45" rjs.TextColor3 = Color3.fromRGB(255, 255, 255) rjs.TextScaled = true rjs.TextSize = 14.000 rjs.TextWrapped = true glk_2.Parent = glk glk_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255) glk_2.BackgroundTransparency = 1.000 glk_2.BorderColor3 = Color3.fromRGB(0, 0, 0) glk_2.BorderSizePixel = 0 glk_2.Position = UDim2.new(0, 0, 0.124423966, 0) glk_2.Size = UDim2.new(0, 359, 0, 189) iq.Name = "\71\101\116\107\101\121" iq.Parent = glk_2 iq.BackgroundColor3 = Color3.fromRGB(0, 0, 0) iq.BorderColor3 = Color3.fromRGB(0, 0, 0) iq.BorderSizePixel = 0 iq.Position = UDim2.new(0.317548752, 0, 0.523809552, 0) iq.Size = UDim2.new(0, 130, 0, 32) iq.Font = Enum.Font.SourceSans iq.Text = "\71\101\116\107\101\121" iq.TextColor3 = Color3.fromRGB(255, 255, 255) iq.TextScaled = true iq.TextSize = 14.000 iq.TextWrapped = true piq.Name = "\67\104\101\99\107\107\101\121" piq.Parent = glk_2 piq.BackgroundColor3 = Color3.fromRGB(0, 0, 0) piq.BorderColor3 = Color3.fromRGB(0, 0, 0) piq.BorderSizePixel = 0 piq.Position = UDim2.new(0.317548752, 0, 0.767195761, 0) piq.Size = UDim2.new(0, 130, 0, 32) piq.Font = Enum.Font.SourceSans piq.Text = "\67\104\101\99\107\75\101\121" piq.TextColor3 = Color3.fromRGB(255, 255, 255) piq.TextScaled = true piq.TextSize = 14.000 piq.TextWrapped = true _p.Parent = glk_2 _p.BackgroundColor3 = Color3.fromRGB(139, 139, 139) _p.BackgroundTransparency = 0.600 _p.BorderColor3 = Color3.fromRGB(0, 0, 0) _p.BorderSizePixel = 0 _p.Position = UDim2.new(0.0779944286, 0, 0.137566134, 0) _p.Size = UDim2.new(0, 304, 0, 42) _p.Font = Enum.Font.SourceSans _p.Text = "" _p.TextTransparency = 1 _p.TextColor3 = Color3.fromRGB(0, 0, 0) _p.TextScaled = true _p.TextSize = 14.000 _p.TextWrapped = true f_p.Parent = glk_2 f_p.BackgroundColor3 = Color3.fromRGB(211, 211, 211) f_p.BackgroundTransparency = 1.000 f_p.BorderColor3 = Color3.fromRGB(0, 0, 0) f_p.BorderSizePixel = 0 f_p.Position = UDim2.new(0.0779944286, 0, 0.137566134, 0) f_p.Size = UDim2.new(0, 304, 0, 42) f_p.ZIndex = 2 f_p.Font = Enum.Font.SourceSans f_p.Text = "\73\110\32\80\117\116\32\89\111\117\114\32\75\101\121" f_p.TextColor3 = Color3.fromRGB(0, 0, 0) f_p.TextScaled = true f_p.TextSize = 14.000 f_p.TextStrokeTransparency = 0.830 f_p.TextTransparency = 0.550 f_p.TextWrapped = true _p:GetPropertyChangedSignal("\84\101\120\116"):Connect(function(l) if _p.Text == "" then f_p.Text =  "\73\110\32\80\117\116\32\89\111\117\114\32\75\101\121" else f_p.Text = _p.Text end end) piq.MouseButton1Down:Connect(function()  if _p and _p.Text then local cf_p = cf_(_p.Text) if cf_p then loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\80\114\111\71\49\49\49\49\49\49\49\49\49\49\49\49\47\65\105\109\72\117\98\47\114\101\102\115\47\104\101\97\100\115\47\109\97\105\110\47\109\97\105\110\46\108\117\97"))() else print("\75\101\121\32\73\115\32\105\110\32\118\97\108\105\100") end  end  end) iq.MouseButton1Down:Connect(function()  sg() end) jsg.MouseButton1Down:Connect(function() if lka then lka:Destroy() end end) rjs.MouseButton1Down:Connect(function() if lka then lka.Enabled = false end end) end)
+
+local service = "3620" ;--Set your Platoboost Id 
+local secret = "0c021daa-a1f1-4038-9275-92a84e1337e0"; --Set Your Platoboost Api key
+local useNonce = true; 
+local onMessage = function(message)  game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", { Text = message; }) end;
+
+
+repeat task.wait(1) until game:IsLoaded() or game.Players.LocalPlayer;
+
+
+local requestSending = false;
+local fSetClipboard, fRequest, fStringChar, fToString, fStringSub, fOsTime, fMathRandom, fMathFloor, fGetHwid = setclipboard or toclipboard, request or http_request, string.char, tostring, string.sub, os.time, math.random, math.floor, gethwid or function() return game:GetService("Players").LocalPlayer.UserId end
+local cachedLink, cachedTime = "", 0;
+local HttpService = game:GetService("HttpService")
+
+function lEncode(data)
+	return HttpService:JSONEncode(data)
+end
+function lDecode(data)
+	return HttpService:JSONDecode(data)
+end
+local function lDigest(input)
+	local inputStr = tostring(input)
+
+
+	local hash = {}
+	for i = 1, #inputStr do
+		table.insert(hash, string.byte(inputStr, i))
+	end
+
+	local hashHex = ""
+	for _, byte in ipairs(hash) do
+		hashHex = hashHex .. string.format("%02x", byte)
+	end
+
+	return hashHex
+end
+local host = "https://api.platoboost.com";
+local hostResponse = fRequest({
+	Url = host .. "/public/connectivity",
+	Method = "GET"
+});
+if hostResponse.StatusCode ~= 200 or hostResponse.StatusCode ~= 429 then
+	host = "https://api.platoboost.net";
+end
+
+function cacheLink()
+	if cachedTime + (10*60) < fOsTime() then
+		local response = fRequest({
+			Url = host .. "/public/start",
+			Method = "POST",
+			Body = lEncode({
+				service = service,
+				identifier = lDigest(fGetHwid())
+			}),
+			Headers = {
+				["Content-Type"] = "application/json"
+			}
+		});
+
+		if response.StatusCode == 200 then
+			local decoded = lDecode(response.Body);
+
+			if decoded.success == true then
+				cachedLink = decoded.data.url;
+				cachedTime = fOsTime();
+				return true, cachedLink;
+			else
+				onMessage(decoded.message);
+				return false, decoded.message;
+			end
+		elseif response.StatusCode == 429 then
+			local msg = "you are being rate limited, please wait 20 seconds and try again.";
+			onMessage(msg);
+			return false, msg;
+		end
+
+		local msg = "Failed to cache link.";
+		onMessage(msg);
+		return false, msg;
+	else
+		return true, cachedLink;
+	end
+end
+
+
+
+cacheLink();
+
+local generateNonce = function()
+	local str = ""
+	for _ = 1, 16 do
+		str = str .. fStringChar(fMathFloor(fMathRandom() * (122 - 97 + 1)) + 97)
+	end
+	return str
+end
+
+
+for _ = 1, 5 do
+	local oNonce = generateNonce();
+	task.wait(0.2)
+	if generateNonce() == oNonce then
+		local msg = "platoboost nonce error.";
+		onMessage(msg);
+		error(msg);
+	end
+end
+
+local copyLink = function()
+	local success, link = cacheLink();
+
+	if success then
+		print("SetClipBoard")
+		fSetClipboard(link);
+	end
+end
+
+local redeemKey = function(key)
+	local nonce = generateNonce();
+	local endpoint = host .. "/public/redeem/" .. fToString(service);
+
+	local body = {
+		identifier = lDigest(fGetHwid()),
+		key = key
+	}
+
+	if useNonce then
+		body.nonce = nonce;
+	end
+
+	local response = fRequest({
+		Url = endpoint,
+		Method = "POST",
+		Body = lEncode(body),
+		Headers = {
+			["Content-Type"] = "application/json"
+		}
+	});
+
+	if response.StatusCode == 200 then
+		local decoded = lDecode(response.Body);
+		if decoded.success == true then
+			if decoded.data.valid == true then
+				if useNonce then
+					if decoded.data.hash == lDigest("true" .. "-" .. nonce .. "-" .. secret) then
+						return true;
+					else
+						onMessage("failed to verify integrity.");
+						return false;
+					end    
+				else
+					return true;
+				end
+			else
+				onMessage("key is invalid.");
+				return false;
+			end
+		else
+			if fStringSub(decoded.message, 1, 27) == "unique constraint violation" then
+				onMessage("you already have an active key, please wait for it to expire before redeeming it.");
+				return false;
+			else
+				onMessage(decoded.message);
+				return false;
+			end
+		end
+	elseif response.StatusCode == 429 then
+		onMessage("you are being rate limited, please wait 20 seconds and try again.");
+		return false;
+	else
+		onMessage("server returned an invalid status code, please try again later.");
+		return false; 
+	end
+end
+
+
+local verifyKey = function(key)
+	if requestSending == true then
+		onMessage("a request is already being sent, please slow down.");
+		return false;
+	else
+		requestSending = true;
+	end
+
+	local nonce = generateNonce();
+	local endpoint = host .. "/public/whitelist/" .. fToString(service) .. "?identifier=" .. lDigest(fGetHwid()) .. "&key=" .. key;
+
+	if useNonce then
+		endpoint = endpoint .. "&nonce=" .. nonce;
+	end
+	local response = fRequest({
+		Url = endpoint,
+		Method = "GET",
+	});
+
+	requestSending = false;
+
+	if response.StatusCode == 200 then
+		local decoded = lDecode(response.Body);
+		if decoded.success == true then
+			if decoded.data.valid == true then
+				if useNonce then
+					return true;
+				else
+					return true;
+				end
+			else
+				if fStringSub(key, 1, 4) == "FREE_" then
+					return redeemKey(key);
+				else
+					onMessage("key is invalid.");
+					return false;
+				end
+			end
+		else
+			onMessage(decoded.message);
+			return false;
+		end
+	elseif response.StatusCode == 429 then
+		onMessage("you are being rate limited, please wait 20 seconds and try again.");
+		return false;
+	else
+		onMessage("server returned an invalid status code, please try again later.");
+		return false;
+	end
+end
+
+
+local getFlag = function(name)
+	local nonce = generateNonce();
+	local endpoint = host .. "/public/flag/" .. fToString(service) .. "?name=" .. name;
+
+	if useNonce then
+		endpoint = endpoint .. "&nonce=" .. nonce;
+	end
+
+	local response = fRequest({
+		Url = endpoint,
+		Method = "GET",
+	});
+
+	if response.StatusCode == 200 then
+		local decoded = lDecode(response.Body);
+		if decoded.success == true then
+			if useNonce then
+				if decoded.data.hash == lDigest(fToString(decoded.data.value) .. "-" .. nonce .. "-" .. secret) then
+					return decoded.data.value;
+				else
+					onMessage("failed to verify integrity.");
+					return nil;
+				end
+			else
+				return decoded.data.value;
+			end
+		else
+			onMessage(decoded.message);
+			return nil;
+		end
+	else
+		return nil;
+	end
+end
+
+task.spawn(function()
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local Topbar = Instance.new("Frame")
+	local Exit = Instance.new("TextButton")
+	local minimize = Instance.new("TextButton")
+	local Frame_2 = Instance.new("Frame")
+	local Getkey = Instance.new("TextButton")
+	local Checkkey = Instance.new("TextButton")
+	local TextBox = Instance.new("TextBox")
+	local TextLabel = Instance.new("TextLabel")
+
+
+	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Frame.Parent = ScreenGui
+	Frame.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
+	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Frame.BorderSizePixel = 0
+	Frame.Position = UDim2.new(0.286729872, 0, 0.295880139, 0)
+	Frame.Size = UDim2.new(0, 359, 0, 217)
+
+	Topbar.Name = "Topbar"
+	Topbar.Parent = Frame
+	Topbar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Topbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Topbar.BorderSizePixel = 0
+	Topbar.Size = UDim2.new(0, 359, 0, 27)
+
+	Exit.Name = "Exit"
+	Exit.Parent = Topbar
+	Exit.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+	Exit.BackgroundTransparency = 0.300
+	Exit.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Exit.BorderSizePixel = 0
+	Exit.Position = UDim2.new(0.905292451, 0, 0.111111112, 0)
+	Exit.Size = UDim2.new(0, 25, 0, 20)
+	Exit.Font = Enum.Font.SourceSans
+	Exit.Text = "X"
+	Exit.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Exit.TextScaled = true
+	Exit.TextSize = 14.000
+	Exit.TextWrapped = true
+
+	minimize.Name = "minimize"
+	minimize.Parent = Topbar
+	minimize.BackgroundColor3 = Color3.fromRGB(85, 255, 0)
+	minimize.BackgroundTransparency = 0.300
+	minimize.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	minimize.BorderSizePixel = 0
+	minimize.Position = UDim2.new(0.810584962, 0, 0.111111112, 0)
+	minimize.Size = UDim2.new(0, 25, 0, 20)
+	minimize.Font = Enum.Font.SourceSans
+	minimize.Text = "-"
+	minimize.TextColor3 = Color3.fromRGB(255, 255, 255)
+	minimize.TextScaled = true
+	minimize.TextSize = 14.000
+	minimize.TextWrapped = true
+
+	Frame_2.Parent = Frame
+	Frame_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Frame_2.BackgroundTransparency = 1.000
+	Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Frame_2.BorderSizePixel = 0
+	Frame_2.Position = UDim2.new(0, 0, 0.124423966, 0)
+	Frame_2.Size = UDim2.new(0, 359, 0, 189)
+
+	Getkey.Name = "Getkey"
+	Getkey.Parent = Frame_2
+	Getkey.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Getkey.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Getkey.BorderSizePixel = 0
+	Getkey.Position = UDim2.new(0.317548752, 0, 0.523809552, 0)
+	Getkey.Size = UDim2.new(0, 130, 0, 32)
+	Getkey.Font = Enum.Font.SourceSans
+	Getkey.Text = "Getkey"
+	Getkey.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Getkey.TextScaled = true
+	Getkey.TextSize = 14.000
+	Getkey.TextWrapped = true
+
+	Checkkey.Name = "Checkkey"
+	Checkkey.Parent = Frame_2
+	Checkkey.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	Checkkey.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Checkkey.BorderSizePixel = 0
+	Checkkey.Position = UDim2.new(0.317548752, 0, 0.767195761, 0)
+	Checkkey.Size = UDim2.new(0, 130, 0, 32)
+	Checkkey.Font = Enum.Font.SourceSans
+	Checkkey.Text = "CheckKey"
+	Checkkey.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Checkkey.TextScaled = true
+	Checkkey.TextSize = 14.000
+	Checkkey.TextWrapped = true
+
+	TextBox.Parent = Frame_2
+	TextBox.BackgroundColor3 = Color3.fromRGB(139, 139, 139)
+	TextBox.BackgroundTransparency = 0.600
+	TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextBox.BorderSizePixel = 0
+	TextBox.Position = UDim2.new(0.0779944286, 0, 0.137566134, 0)
+	TextBox.Size = UDim2.new(0, 304, 0, 42)
+	TextBox.Font = Enum.Font.SourceSans
+	TextBox.Text = ""
+	TextBox.TextTransparency = 1
+	TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TextBox.TextScaled = true
+	TextBox.TextSize = 14.000
+	TextBox.TextWrapped = true
+
+	TextLabel.Parent = Frame_2
+	TextLabel.BackgroundColor3 = Color3.fromRGB(211, 211, 211)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.Position = UDim2.new(0.0779944286, 0, 0.137566134, 0)
+	TextLabel.Size = UDim2.new(0, 304, 0, 42)
+	TextLabel.ZIndex = 2
+	TextLabel.Font = Enum.Font.SourceSans
+	TextLabel.Text = "In Put Your Key"
+	TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.TextScaled = true
+	TextLabel.TextSize = 14.000
+	TextLabel.TextStrokeTransparency = 0.830
+	TextLabel.TextTransparency = 0.550
+	TextLabel.TextWrapped = true
+
+
+
+
+	TextBox:GetPropertyChangedSignal("Text"):Connect(function(text)
+		if TextBox.Text == "" then
+			TextLabel.Text =  "In Put Your Key"
+		else
+			TextLabel.Text = TextBox.Text
+		end
+	end)
+
+	Checkkey.MouseButton1Down:Connect(function() 
+		if TextBox and TextBox.Text then
+
+			local Verify = verifyKey(TextBox.Text)
+			if Verify then
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ProG111111111111/AimHub/refs/heads/main/main.lua"))()
+			else
+				loadstring(game:HttpGet("https://raw.githubusercontent.com/ProG111111111111/AimHub/refs/heads/main/main.lua"))()
+			end 
+		end	
+	end)
+
+	Getkey.MouseButton1Down:Connect(function() 
+		copyLink()
+	end)
+
+	Exit.MouseButton1Down:Connect(function()
+		if ScreenGui then
+			ScreenGui:Destroy()
+		end
+	end)
+
+
+	minimize.MouseButton1Down:Connect(function()
+		if ScreenGui then
+			ScreenGui.Enabled = false
+		end
+	end)
+
+end)
