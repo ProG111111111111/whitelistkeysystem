@@ -111,6 +111,8 @@ local copyLink = function()
 
 	if success then
 		print("SetClipBoard")
+		TextLabel.Text = "Link as been copied to clipboard"
+		
 		fSetClipboard(link);
 	end
 end
