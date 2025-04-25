@@ -1,12 +1,11 @@
-
 local service = "3620" ;--Set your Platoboost Id 
 local secret = "0c021daa-a1f1-4038-9275-92a84e1337e0"; --Set Your Platoboost Api key
 local useNonce = true; 
-local onMessage = function(message)  game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", { Text = message; }) end;
-
+local onMessage = function(message)  
+	game:GetService("StarterGui"):SetCore("ChatMakeSystemMessage", { Text = message; }) 
+end;
 
 repeat task.wait(1) until game:IsLoaded() or game.Players.LocalPlayer;
-
 
 local requestSending = false;
 local fSetClipboard, fRequest, fStringChar, fToString, fStringSub, fOsTime, fMathRandom, fMathFloor, fGetHwid = setclipboard or toclipboard, request or http_request, string.char, tostring, string.sub, os.time, math.random, math.floor, gethwid or function() return game:GetService("Players").LocalPlayer.UserId end
@@ -22,7 +21,6 @@ end
 local function lDigest(input)
 	local inputStr = tostring(input)
 
-
 	local hash = {}
 	for i = 1, #inputStr do
 		table.insert(hash, string.byte(inputStr, i))
@@ -35,6 +33,7 @@ local function lDigest(input)
 
 	return hashHex
 end
+
 local host = "https://api.platoboost.com";
 local hostResponse = fRequest({
 	Url = host .. "/public/connectivity",
@@ -60,7 +59,6 @@ function cacheLink()
 
 		if response.StatusCode == 200 then
 			local decoded = lDecode(response.Body);
-
 			if decoded.success == true then
 				cachedLink = decoded.data.url;
 				cachedTime = fOsTime();
@@ -83,10 +81,6 @@ function cacheLink()
 	end
 end
 
-
-
-cacheLink();
-
 local generateNonce = function()
 	local str = ""
 	for _ = 1, 16 do
@@ -94,7 +88,6 @@ local generateNonce = function()
 	end
 	return str
 end
-
 
 for _ = 1, 5 do
 	local oNonce = generateNonce();
@@ -106,14 +99,14 @@ for _ = 1, 5 do
 	end
 end
 
-local copyLink = function()
+local copyLink = function(getKeyButton)
 	local success, link = cacheLink();
 
 	if success then
 		print("SetClipBoard")
-		Getkey.Text = "Key unlocker copied to clipboard!"
+		getKeyButton.Text = "Key unlocker copied to clipboard!"
 		wait(3)
-		Getkey.Text = "Getkey"
+		getKeyButton.Text = "Getkey"
 		
 		fSetClipboard(link);
 	end
@@ -177,7 +170,6 @@ local redeemKey = function(key)
 	end
 end
 
-
 local verifyKey = function(key)
 	if requestSending == true then
 		onMessage("a request is already being sent, please slow down.");
@@ -229,7 +221,6 @@ local verifyKey = function(key)
 	end
 end
 
-
 local getFlag = function(name)
 	local nonce = generateNonce();
 	local endpoint = host .. "/public/flag/" .. fToString(service) .. "?name=" .. name;
@@ -265,6 +256,7 @@ local getFlag = function(name)
 	end
 end
 
+-- UI Block
 task.spawn(function()
 	local ScreenGui = Instance.new("ScreenGui")
 	local Frame = Instance.new("Frame")
@@ -277,160 +269,85 @@ task.spawn(function()
 	local TextBox = Instance.new("TextBox")
 	local TextLabel = Instance.new("TextLabel")
 
-
 	ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	Frame.Parent = ScreenGui
 	Frame.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
-	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Frame.BorderSizePixel = 0
 	Frame.Position = UDim2.new(0.286729872, 0, 0.295880139, 0)
 	Frame.Size = UDim2.new(0, 359, 0, 217)
 
 	Topbar.Name = "Topbar"
 	Topbar.Parent = Frame
 	Topbar.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	Topbar.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Topbar.BorderSizePixel = 0
 	Topbar.Size = UDim2.new(0, 359, 0, 27)
 
 	Exit.Name = "Exit"
 	Exit.Parent = Topbar
 	Exit.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	Exit.BackgroundTransparency = 0.300
-	Exit.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Exit.BorderSizePixel = 0
-	Exit.Position = UDim2.new(0.905292451, 0, 0.111111112, 0)
+	Exit.Position = UDim2.new(0.905, 0, 0.1, 0)
 	Exit.Size = UDim2.new(0, 25, 0, 20)
-	Exit.Font = Enum.Font.SourceSans
 	Exit.Text = "X"
-	Exit.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Exit.TextScaled = true
-	Exit.TextSize = 14.000
-	Exit.TextWrapped = true
 
 	minimize.Name = "minimize"
 	minimize.Parent = Topbar
 	minimize.BackgroundColor3 = Color3.fromRGB(85, 255, 0)
-	minimize.BackgroundTransparency = 0.300
-	minimize.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	minimize.BorderSizePixel = 0
-	minimize.Position = UDim2.new(0.810584962, 0, 0.111111112, 0)
+	minimize.Position = UDim2.new(0.810, 0, 0.1, 0)
 	minimize.Size = UDim2.new(0, 25, 0, 20)
-	minimize.Font = Enum.Font.SourceSans
 	minimize.Text = "-"
-	minimize.TextColor3 = Color3.fromRGB(255, 255, 255)
-	minimize.TextScaled = true
-	minimize.TextSize = 14.000
-	minimize.TextWrapped = true
 
 	Frame_2.Parent = Frame
-	Frame_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Frame_2.BackgroundTransparency = 1.000
-	Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Frame_2.BorderSizePixel = 0
-	Frame_2.Position = UDim2.new(0, 0, 0.124423966, 0)
+	Frame_2.Position = UDim2.new(0, 0, 0.124, 0)
 	Frame_2.Size = UDim2.new(0, 359, 0, 189)
 
 	Getkey.Name = "Getkey"
 	Getkey.Parent = Frame_2
 	Getkey.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	Getkey.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Getkey.BorderSizePixel = 0
-	Getkey.Position = UDim2.new(0.317548752, 0, 0.523809552, 0)
+	Getkey.Position = UDim2.new(0.317, 0, 0.524, 0)
 	Getkey.Size = UDim2.new(0, 130, 0, 32)
-	Getkey.Font = Enum.Font.SourceSans
 	Getkey.Text = "Getkey"
-	Getkey.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Getkey.TextScaled = true
-	Getkey.TextSize = 14.000
-	Getkey.TextWrapped = true
 
 	Checkkey.Name = "Checkkey"
 	Checkkey.Parent = Frame_2
 	Checkkey.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	Checkkey.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Checkkey.BorderSizePixel = 0
-	Checkkey.Position = UDim2.new(0.317548752, 0, 0.767195761, 0)
+	Checkkey.Position = UDim2.new(0.317, 0, 0.767, 0)
 	Checkkey.Size = UDim2.new(0, 130, 0, 32)
-	Checkkey.Font = Enum.Font.SourceSans
 	Checkkey.Text = "CheckKey"
-	Checkkey.TextColor3 = Color3.fromRGB(255, 255, 255)
-	Checkkey.TextScaled = true
-	Checkkey.TextSize = 14.000
-	Checkkey.TextWrapped = true
 
 	TextBox.Parent = Frame_2
 	TextBox.BackgroundColor3 = Color3.fromRGB(139, 139, 139)
 	TextBox.BackgroundTransparency = 0.600
-	TextBox.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextBox.BorderSizePixel = 0
-	TextBox.Position = UDim2.new(0.0779944286, 0, 0.137566134, 0)
+	TextBox.Position = UDim2.new(0.078, 0, 0.138, 0)
 	TextBox.Size = UDim2.new(0, 304, 0, 42)
-	TextBox.Font = Enum.Font.SourceSans
 	TextBox.Text = ""
-	TextBox.TextTransparency = 1
-	TextBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-	TextBox.TextScaled = true
-	TextBox.TextSize = 14.000
-	TextBox.TextWrapped = true
 
 	TextLabel.Parent = Frame_2
-	TextLabel.BackgroundColor3 = Color3.fromRGB(211, 211, 211)
 	TextLabel.BackgroundTransparency = 1.000
-	TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel.BorderSizePixel = 0
-	TextLabel.Position = UDim2.new(0.0779944286, 0, 0.137566134, 0)
+	TextLabel.Position = UDim2.new(0.078, 0, 0.138, 0)
 	TextLabel.Size = UDim2.new(0, 304, 0, 42)
-	TextLabel.ZIndex = 2
-	TextLabel.Font = Enum.Font.SourceSans
 	TextLabel.Text = "In Put Your Key"
-	TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-	TextLabel.TextScaled = true
-	TextLabel.TextSize = 14.000
-	TextLabel.TextStrokeTransparency = 0.830
-	TextLabel.TextTransparency = 0.550
-	TextLabel.TextWrapped = true
 
-
-
-
-	TextBox:GetPropertyChangedSignal("Text"):Connect(function(text)
-		if TextBox.Text == "" then
-			TextLabel.Text =  "In Put Your Key"
-		else
-			TextLabel.Text = TextBox.Text
-		end
+	TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+		TextLabel.Text = TextBox.Text == "" and "In Put Your Key" or TextBox.Text
 	end)
 
 	Checkkey.MouseButton1Down:Connect(function() 
 		if TextBox and TextBox.Text then
-
 			local Verify = verifyKey(TextBox.Text)
-			if Verify then
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/ProG111111111111/AimHub/refs/heads/main/main.lua"))()
-			else
-				loadstring(game:HttpGet("https://raw.githubusercontent.com/ProG111111111111/AimHub/refs/heads/main/main.lua"))()
-			end 
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/ProG111111111111/AimHub/refs/heads/main/main.lua"))()
 		end	
 	end)
 
 	Getkey.MouseButton1Down:Connect(function() 
-		copyLink()
+		copyLink(Getkey)
 	end)
 
 	Exit.MouseButton1Down:Connect(function()
-		if ScreenGui then
-			ScreenGui:Destroy()
-		end
+		ScreenGui:Destroy()
 	end)
-
 
 	minimize.MouseButton1Down:Connect(function()
-		if ScreenGui then
-			ScreenGui.Enabled = false
-		end
+		ScreenGui.Enabled = false
 	end)
-
 end)
