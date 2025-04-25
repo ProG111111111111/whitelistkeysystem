@@ -111,7 +111,9 @@ local copyLink = function()
 
 	if success then
 		print("SetClipBoard")
-		TextLabel.Text = "Link as been copied to clipboard"
+		Getkey.Text = "Key unlocker copied to clipboard!"
+		wait(3)
+		Getkey.Text = "Getkey"
 		
 		fSetClipboard(link);
 	end
